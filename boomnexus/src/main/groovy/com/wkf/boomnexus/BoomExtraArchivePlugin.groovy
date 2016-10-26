@@ -1,4 +1,4 @@
-package com.wkf.nexusupload
+package com.wkf.boomnexus
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project

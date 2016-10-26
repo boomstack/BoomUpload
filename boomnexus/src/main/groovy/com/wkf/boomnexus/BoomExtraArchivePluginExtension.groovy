@@ -1,4 +1,4 @@
-package com.wkf.nexusupload
+package com.wkf.boomnexus
 
 class BoomExtraArchivePluginExtension {
     Boolean sources = Boolean.TRUE

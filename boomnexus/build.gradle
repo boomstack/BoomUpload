@@ -1,20 +1,7 @@
-buildscript {
-    repositories {
-        maven { url 'http://jcenter.bintray.com' }
-    }
-
-    dependencies {
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:0.6'
-    }
-}
-
 apply plugin: 'groovy'
 apply plugin: 'idea'
 apply plugin: 'maven-publish'
-apply plugin: 'com.jfrog.bintray'
-
-//发布本插件用
-apply plugin: 'maven'
+apply plugin: 'com.novoda.bintray-release'
 
 
 def compatibilityVersion = 1.7
@@ -30,76 +17,12 @@ dependencies {
     compile gradleApi()
 }
 
-apply plugin: 'com.android.library'
-apply plugin: 'com.github.dcendents.android-maven'
-apply plugin: 'com.jfrog.bintray'
-version = "1.1"
-def siteUrl = 'https://github.com/boomstack/Pin'
-def gitUrl = 'git@github.com:boomstack/Pin.git'
-group = "com.wkf.pin"
-
-install {
-    repositories.mavenInstaller {
-        // This generates POM.xml with proper parameters
-        pom {
-            project {
-                packaging 'aar'
-                name 'Pinyin Translator For Android'
-                url siteUrl
-                licenses {
-                    license {
-                        name 'The Apache Software License, Version 2.0'
-                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                    }
-                }
-                developers {
-                    developer {
-                        id 'wangkangfei'
-                        name 'wangkangfei'
-                        email 'kangfeiwang@gmail.com'
-                    }
-                }
-                scm {
-                    connection gitUrl
-                    developerConnection gitUrl
-                    url siteUrl
-                }
-            }
-        }
-    }
-}
-task sourcesJar(type: Jar) {
-    from android.sourceSets.main.java.srcDirs
-    classifier = 'sources'
-}
-
-task javadoc(type: Javadoc) {
-    source = android.sourceSets.main.java.srcDirs
-    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-}
-
-task javadocJar(type: Jar, dependsOn: Javadoc) {
-    classifier = 'javadoc'
-    from Javadoc.destinationDir
-}
-
-artifacts {
-    archives javadocJar
-    archives sourcesJar
-}
-Properties properties = new Properties()
-properties.load(project.rootProject.file('local.properties').newDataInputStream())
-bintray {
-    user = properties.getProperty("bintray.user")
-    key = properties.getProperty("bintray.apikey")
-    configurations = ['archives']
-    pkg {
-        repo = "maven"
-        name = "pyutil"                // project name in jcenter
-        websiteUrl = siteUrl
-        vcsUrl = gitUrl
-        licenses = ["Apache-2.0"]
-        publish = true
-    }
+publish{
+    userOrg = 'wangkangfei'
+    groupId = 'com.wkf.boomnexus'
+    artifactId = 'nexusupload'
+    publishVersion = '1.0'
+    desc = 'gradle plugin for upload lib to nexus'
+    website = 'https://github.com/boomstack/BoomUpload'
 }
 
